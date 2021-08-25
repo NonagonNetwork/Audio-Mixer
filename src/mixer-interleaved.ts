@@ -13,7 +13,7 @@ export class InterleavedMixer extends Mixer {
         let samples = this.getMaxSamples();
 
         if (samples > 0 && samples !== Number.MAX_VALUE) {
-            let mixedBuffer = new Buffer(samples * this.sampleByteLength * this.args.channels);
+            let mixedBuffer = Buffer.alloc(samples * this.sampleByteLength * this.args.channels);
 
             mixedBuffer.fill(0);
 

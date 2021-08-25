@@ -19,7 +19,7 @@ class Input extends stream_1.Writable {
         if (args.channels === 2) {
             this.readStereo = this.read;
         }
-        this.buffer = new Buffer(0);
+        this.buffer = Buffer.alloc(0);
         if (args.bitDepth === 8) {
             this.readSample = this.buffer.readInt8;
             this.writeSample = this.buffer.writeInt8;
@@ -57,7 +57,7 @@ class Input extends stream_1.Writable {
     }
     readMono(samples) {
         let stereoBuffer = this.read(samples);
-        let monoBuffer = new Buffer(stereoBuffer.length / 2);
+        let monoBuffer = Buffer.alloc(stereoBuffer.length / 2);
         let availableSamples = this.availableSamples(stereoBuffer.length);
         for (let i = 0; i < availableSamples; i++) {
             let l = this.readSample.call(stereoBuffer, i * this.sampleByteLength * 2);
@@ -68,7 +68,7 @@ class Input extends stream_1.Writable {
     }
     readStereo(samples) {
         let monoBuffer = this.read(samples);
-        let stereoBuffer = new Buffer(monoBuffer.length * 2);
+        let stereoBuffer = Buffer.alloc(monoBuffer.length * 2);
         let availableSamples = this.availableSamples(monoBuffer.length);
         for (let i = 0; i < availableSamples; i++) {
             let m = this.readSample.call(monoBuffer, i * this.sampleByteLength);
@@ -103,7 +103,7 @@ class Input extends stream_1.Writable {
         }
     }
     destroy() {
-        this.buffer = new Buffer(0);
+        this.buffer = Buffer.alloc(0);
     }
 }
 exports.Input = Input;

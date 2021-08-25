@@ -50,7 +50,7 @@ export class Input extends Writable {
             this.readStereo = this.read;
         }
 
-        this.buffer = new Buffer(0);
+        this.buffer = Buffer.alloc(0);
 
         if (args.bitDepth === 8) {
             this.readSample = this.buffer.readInt8;
@@ -108,7 +108,7 @@ export class Input extends Writable {
      */
     public readMono(samples) {
         let stereoBuffer = this.read(samples);
-        let monoBuffer = new Buffer(stereoBuffer.length / 2);
+        let monoBuffer = Buffer.alloc(stereoBuffer.length / 2);
 
         let availableSamples = this.availableSamples(stereoBuffer.length);
 
@@ -129,7 +129,7 @@ export class Input extends Writable {
      */
     public readStereo(samples) {
         let monoBuffer = this.read(samples);
-        let stereoBuffer = new Buffer(monoBuffer.length * 2);
+        let stereoBuffer = Buffer.alloc(monoBuffer.length * 2);
 
         let availableSamples = this.availableSamples(monoBuffer.length);
 
@@ -198,6 +198,6 @@ export class Input extends Writable {
      * Clears the buffer
      */
     public destroy() {
-        this.buffer = new Buffer(0);
+        this.buffer = Buffer.alloc(0);
     }
 }

@@ -11,7 +11,7 @@ class Mixer extends stream_1.Readable {
         if (args.sampleRate < 1) {
             args.sampleRate = 44100;
         }
-        let buffer = new Buffer(0);
+        let buffer = Buffer.alloc(0);
         if (args.bitDepth === 8) {
             this.readSample = buffer.readInt8;
             this.writeSample = buffer.writeInt8;
@@ -34,7 +34,7 @@ class Mixer extends stream_1.Readable {
     _read() {
         let samples = this.getMaxSamples();
         if (samples > 0 && samples !== Number.MAX_VALUE) {
-            let mixedBuffer = new Buffer(samples * this.sampleByteLength * this.args.channels);
+            let mixedBuffer = Buffer.alloc(samples * this.sampleByteLength * this.args.channels);
             mixedBuffer.fill(0);
             this.inputs.forEach((input) => {
                 if (input.hasData) {
